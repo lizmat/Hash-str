@@ -1,9 +1,9 @@
-[![Actions Status](https://github.com/lizmat/Hash-int/workflows/test/badge.svg)](https://github.com/lizmat/Hash-int/actions)
+[![Actions Status](https://github.com/lizmat/Hash-str/workflows/test/badge.svg)](https://github.com/lizmat/Hash-str/actions)
 
 NAME
 ====
 
-Hash::int - provide a hash with native string keys
+Hash::str - provide a hash with native string keys
 
 SYNOPSIS
 ========
@@ -24,7 +24,7 @@ AUTHOR
 
 Elizabeth Mattijsen <liz@raku.rocks>
 
-Source can be located at: https://github.com/lizmat/Hash-int . Comments and Pull Requests are welcome.
+Source can be located at: https://github.com/lizmat/Hash-str . Comments and Pull Requests are welcome.
 
 COPYRIGHT AND LICENSE
 =====================

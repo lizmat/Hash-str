@@ -2,7 +2,7 @@
 # hopefully this will be integrated into Rakudo before soon.
 use nqp;
 
-class Hash::str:ver<0.0.1>:auth<zef:lizmat> {
+class Hash::str:ver<0.0.2>:auth<zef:lizmat> {
     has $!hash handles <gist raku Str values pairs iterator>;
 
     method new() {
@@ -74,7 +74,7 @@ class Hash::str:ver<0.0.1>:auth<zef:lizmat> {
 
 =head1 NAME
 
-Hash::int - provide a hash with native string keys
+Hash::str - provide a hash with native string keys
 
 =head1 SYNOPSIS
 
@@ -99,7 +99,7 @@ last few percent.
 
 Elizabeth Mattijsen <liz@raku.rocks>
 
-Source can be located at: https://github.com/lizmat/Hash-int . Comments and
+Source can be located at: https://github.com/lizmat/Hash-str . Comments and
 Pull Requests are welcome.
 
 =head1 COPYRIGHT AND LICENSE
