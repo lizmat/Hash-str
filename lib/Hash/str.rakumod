@@ -2,7 +2,7 @@
 # hopefully this will be integrated into Rakudo before soon.
 use nqp;
 
-class Hash::int:ver<0.0.3>:auth<zef:lizmat> {
+class Hash::str:ver<0.0.1>:auth<zef:lizmat> {
     has $!hash handles <gist raku Str values pairs iterator>;
 
     method new() {
@@ -21,7 +21,7 @@ class Hash::int:ver<0.0.3>:auth<zef:lizmat> {
             nqp::istype($x,Pair),
             nqp::bindkey(
               $hash,
-              (my int $ = nqp::getattr(nqp::decont($x),Pair,'$!key').Int),
+              nqp::getattr(nqp::decont($x),Pair,'$!key').Str,
               (nqp::getattr(nqp::decont($x),Pair,'$!value'))
             ),
             nqp::if(
@@ -37,7 +37,7 @@ class Hash::int:ver<0.0.3>:auth<zef:lizmat> {
                     last  => $x
                   ).throw
                 ),
-                nqp::bindkey($hash,(my int $ = $x.Int),$y)
+                nqp::bindkey($hash,$x.Str,$y)
               )
             )
           )
@@ -45,28 +45,28 @@ class Hash::int:ver<0.0.3>:auth<zef:lizmat> {
         self
     }
 
-    method AT-KEY(::?CLASS:D: int $key) is raw {
+    method AT-KEY(::?CLASS:D: str $key) is raw {
         nqp::atkey($!hash,$key)
     }
-    method ASSIGN-KEY(::?CLASS:D: int $key, \value) is raw {
+    method ASSIGN-KEY(::?CLASS:D: str $key, \value) is raw {
         nqp::bindkey($!hash,$key,value)
     }
-    method BIND-KEY(::?CLASS:D: int $key, \value) is raw {
+    method BIND-KEY(::?CLASS:D: str $key, \value) is raw {
         nqp::bindkey($!hash,$key,value)
     }
-    method DELETE-KEY(::?CLASS:D: int $key) is raw {
+    method DELETE-KEY(::?CLASS:D: str $key) is raw {
         my $value := nqp::atkey($!hash,$key);
         nqp::deletekey($!hash,$key);
         $value
     }
-    method EXISTS-KEY(::?CLASS:D: int $key) is raw {
+    method EXISTS-KEY(::?CLASS:D: str $key) is raw {
         nqp::hllbool(nqp::existskey($!hash,$key))
     }
     method keys(::?CLASS:D:) {
-        nqp::hllize($!hash).keys.map: *.Int
+        nqp::hllize($!hash).keys
     }
     method kv(::?CLASS:D:) {
-        nqp::hllize($!hash).map: { (.key.Int, .value).Slip }
+        nqp::hllize($!hash).map: { (.key, .value).Slip }
     }
 }
 
@@ -74,24 +74,26 @@ class Hash::int:ver<0.0.3>:auth<zef:lizmat> {
 
 =head1 NAME
 
-Hash::int - provide a hash with native integer keys
+Hash::int - provide a hash with native string keys
 
 =head1 SYNOPSIS
 
 =begin code :lang<raku>
 
-use Hash::int;
+use Hash::str;
 
-my %hash is Hash::int = 42 => "foo", 666 => "bar";
+my %hash is Hash::str = fortytwo => "foo", sixsixsix => "bar";
 
 =end code
 
 =head1 DESCRIPTION
 
-Hash::int is module that provides the C<Hash::int> class to be applied
+Hash::str is module that provides the C<Hash::str> class to be applied
 to the initialization of an Associative, making it limit the keys to
-native integers that fit the C<int> type.  This allows this module to
-take some shortcuts, making it up to 7x as fast as a normal hash.
+native string.  This allows this module to take some shortcuts, but
+only have a very limited (a few %_) performance improvement, so you
+should really only use this module if you're looking at getting those
+last few percent.
 
 =head1 AUTHOR
 

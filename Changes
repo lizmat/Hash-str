@@ -1,14 +1,6 @@
-Revision history for Hash-int
+Revision history for Hash-str
 
 {{$NEXT}}
 
-0.0.3  2021-09-10T11:18:42+02:00
-    - Change file extension to .rakumod
-    - Migrate to zef ecosystem
-    - Update email address
-
-0.0.2  2021-01-30T14:03:29+01:00
-    - Make sure that methods only take instances
-
-0.0.1  2021-01-16T13:25:46+01:00
-    - Initial version
+0.0.1  2021-09-27T13:59:01+02:00
+    - Initial version, cat-licensed from Hash-int

@@ -3,21 +3,21 @@
 NAME
 ====
 
-Hash::int - provide a hash with native integer keys
+Hash::int - provide a hash with native string keys
 
 SYNOPSIS
 ========
 
 ```raku
-use Hash::int;
+use Hash::str;
 
-my %hash is Hash::int = 42 => "foo", 666 => "bar";
+my %hash is Hash::str = fortytwo => "foo", sixsixsix => "bar";
 ```
 
 DESCRIPTION
 ===========
 
-Hash::int is module that provides the `Hash::int` class to be applied to the initialization of an Associative, making it limit the keys to native integers that fit the `int` type. This allows this module to take some shortcuts, making it up to 7x as fast as a normal hash.
+Hash::str is module that provides the `Hash::str` class to be applied to the initialization of an Associative, making it limit the keys to native string. This allows this module to take some shortcuts, but only have a very limited (a few %_) performance improvement, so you should really only use this module if you're looking at getting those last few percent.
 
 AUTHOR
 ======
