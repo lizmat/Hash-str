@@ -2,7 +2,7 @@
 # hopefully this will be integrated into Rakudo before soon.
 use nqp;
 
-class Hash::str:ver<0.0.2>:auth<zef:lizmat> {
+class Hash::str:ver<0.0.5>:auth<zef:lizmat> {
     has $!hash handles <gist raku Str values pairs iterator>;
 
     method new() {
@@ -67,6 +67,45 @@ class Hash::str:ver<0.0.2>:auth<zef:lizmat> {
     }
     method kv(::?CLASS:D:) {
         nqp::hllize($!hash).map: { (.key, .value).Slip }
+    }
+    method push(::?CLASS:D: +values) {
+        my $iterator := values.iterator;
+        my $previous := nqp::null;
+        nqp::until(
+          nqp::eqaddr((my $pulled := $iterator.pull-one),IterationEnd),
+          nqp::if(
+            nqp::isnull($previous),
+            nqp::if(
+              nqp::istype($pulled,Pair),
+              self!push(.key, .value),
+              $previous := $pulled
+            ),
+            nqp::stmts(
+              self!push($previous, $pulled),
+              $previous := nqp::null
+            )
+          )
+        );
+
+        warn "Trailing item in {self.^name}.push"
+          unless nqp::isnull($previous);
+        self
+    }
+    method !push(str $key, $value --> Nil) {
+        nqp::if(
+          nqp::isnull(my $old := nqp::atkey($!hash,$key)),
+          nqp::bindkey($!hash,$key,$value),
+          nqp::if(
+            nqp::istype($old,List),
+            nqp::push(nqp::getattr($old,List,'$!reified'),$value),
+            nqp::bindkey($!hash,$key,nqp::stmts(
+              (my $buffer := nqp::create(IterationBuffer)),
+              nqp::push($buffer,$old),
+              nqp::push($buffer,$value),
+              $buffer.List
+            ))
+          )
+        )
     }
 }
 

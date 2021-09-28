@@ -2,6 +2,10 @@ Revision history for Hash-str
 
 {{$NEXT}}
 
+0.0.5  2021-09-28T11:48:04+02:00
+    - Add support for .push
+    - Skip a few version to avoid tagging issues
+
 0.0.2  2021-09-27T14:02:29+02:00
     - Fixup git repo, 0.0.1 was uploaded to Hash-int, meh
 
