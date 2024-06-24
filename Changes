@@ -2,6 +2,11 @@ Revision history for Hash-str
 
 {{$NEXT}}
 
+0.0.6  2024-06-24T22:12:32+02:00
+    - Modernize test file extension
+    - Add sponsor link and button
+    - Update copyright year
+
 0.0.5  2021-09-28T11:48:04+02:00
     - Add support for .push
     - Skip a few version to avoid tagging issues
