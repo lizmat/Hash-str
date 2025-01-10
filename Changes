@@ -1,6 +1,8 @@
 Revision history for Hash-str
 
 {{$NEXT}}
+
+0.0.7  2025-01-10T17:06:07+01:00
     - Add CI badge for each OS
     - Update copyright year
 
