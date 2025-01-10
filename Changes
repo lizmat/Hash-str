@@ -1,6 +1,8 @@
 Revision history for Hash-str
 
 {{$NEXT}}
+    - Add CI badge for each OS
+    - Update copyright year
 
 0.0.6  2024-06-24T22:12:32+02:00
     - Modernize test file extension
